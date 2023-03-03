@@ -1,14 +1,44 @@
 <template>
-  <h3 class="text-center">Server status for {{ addr }}</h3>
-  <div v-if="status" class="mx-auto text-center">
-    <p><ServerIcon :icon="status.favicon"/><br>
-      Online players: {{ status.players.online }} / {{ status.players.max }}<br>
-      Server version: {{ status.version.name }}<br>
-      <span v-if="status.description.text !== ''">MOTD: {{ status.description.text }}</span>
-    </p>
-    <p v-if="status.players.sample" v-for="player in status.players.sample"><img
-        :src="'https://visage.surgeplay.com/face/64/'+player.id" class="m-1"><strong>{{ player.name }}</strong>
-      ({{ player.id }})</p>
+  <h3>Server status for {{ addr }}</h3>
+  <div v-if="status">
+    <table class="table table-dark table-striped">
+      <tbody>
+      <tr>
+        <th>ICON</th>
+        <th>
+          <ServerIcon :icon="status.favicon"/>
+        </th>
+      </tr>
+      <tr>
+        <th>ONLINE</th>
+        <th>{{ status.players.online }} / {{ status.players.max }}</th>
+      </tr>
+      <tr>
+        <th>VERSION</th>
+        <th>{{ status.version.name }}</th>
+      </tr>
+      <tr v-if="status.description.text !== ''">
+        <th>MOTD</th>
+        <th>{{ status.description.text }}</th>
+      </tr>
+      </tbody>
+    </table>
+    <table class="table table-dark table-striped" v-if="status.players.sample">
+      <thead>
+      <tr>
+        <th scope="col">AVATAR</th>
+        <th scope="col">USERNAME</th>
+        <th scope="col">UUID</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="player in status.players.sample">
+        <th scope="row"><img :src="'https://visage.surgeplay.com/face/64/'+player.id"/></th>
+        <td>{{ player.name }}</td>
+        <td>{{ player.id }}</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 

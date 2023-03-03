@@ -46,6 +46,10 @@ function retrieveServerStatus(addr) {
         const rsp = err.response.data
         console.log(`Failed retrieving status for ${addr}`)
         console.log(`${rsp.name}: ${rsp.message}`)
+        servers.value.push({
+          address: addr,
+          offline: true
+        })
       })
 }
 </script>

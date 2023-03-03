@@ -21,10 +21,11 @@
           <td>
             <router-link :to="'/status/'+server.address">{{ server.address }}</router-link>
           </td>
-          <td>{{ server.players.online }}</td>
-          <td>{{ server.players.max }}</td>
-          <td>{{ server.version.name }}</td>
-          <td>{{ server.description.text }}</td>
+          <td colspan="4" v-if="server.offline">SERVER OFFLINE, OR PING IS DISABLED IN PROPERTIES</td>
+          <td v-if="!server.offline">{{ server.players.online }}</td>
+          <td v-if="!server.offline">{{ server.players.max }}</td>
+          <td v-if="!server.offline">{{ server.version.name }}</td>
+          <td v-if="!server.offline">{{ server.description.text }}</td>
           <td>
             <button class="btn btn-danger" type="button" v-on:click="removeToFavourites(server.address)"
                     v-if="isSaved(server.address)">Remove
@@ -47,6 +48,7 @@
 
 import {toRefs} from "vue";
 import ServerIcon from "@/components/ServerIcon.vue";
+import router from "@/router";
 
 const props = defineProps({
   servers: Array
@@ -62,6 +64,9 @@ const addToFavourites = (addr) => {
 
   arr.push(addr);
   localStorage.setItem('favourites', JSON.stringify(arr));
+
+  // Refresh the page
+  router.go();
 }
 
 const removeToFavourites = (addr) => {
@@ -73,6 +78,9 @@ const removeToFavourites = (addr) => {
 
   arr = arr.filter(item => item !== addr)
   localStorage.setItem('favourites', JSON.stringify(arr));
+
+  // Refresh the page
+  router.go();
 }
 
 const isSaved = (addr) => {
