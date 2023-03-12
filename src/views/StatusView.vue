@@ -29,6 +29,8 @@
         <th scope="col">AVATAR</th>
         <th scope="col">USERNAME</th>
         <th scope="col">UUID</th>
+        <th scope="col">DISCORD TAG</th>
+        <th scope="col">DISCORD ID</th>
       </tr>
       </thead>
       <tbody>
@@ -36,6 +38,9 @@
         <th scope="row"><img :src="'https://visage.surgeplay.com/face/64/'+player.id"/></th>
         <td>{{ player.name }}</td>
         <td>{{ player.id }}</td>
+        <td v-if="player.discord">{{ player.discord }}</td>
+        <td v-if="player.discord">{{ player.discordId }}</td>
+        <td v-else colspan="2">No data</td>
       </tr>
       </tbody>
     </table>
@@ -60,6 +65,16 @@ axios.get(`https://link.samifying.com/api/status/${addr}`)
       if (rsp.status === 200) {
         status.value = rsp.data
         console.log(`Successfully retrieved status for ${addr}`)
+
+        if (rsp.data.players.online >0)
+          status.value.players.sample.forEach(p=>{
+          axios.get(`https://cache.samifying.com/api/data/uuid/${p.id}`)
+              .then(rsp=>{
+                // Insert discord field
+                    p.discord = rsp.data.tag
+                    p.discordId = rsp.data.discordId
+              })
+        })
       }
     })
     .catch(err => {
