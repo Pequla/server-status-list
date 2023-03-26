@@ -12,7 +12,7 @@
             <router-link class="nav-link" to="/">Home</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/status/37.230.138.224:25577">Status</router-link>
+            <router-link class="nav-link" to="/status/play.beocraft.net">Status</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/scan?addr=37.230.138.224&end=25605">Scan</router-link>
@@ -27,7 +27,7 @@
   <footer class="footer mt-auto text-center bg-dark">
     <p class="m-0 p-0 text-muted">&copy; {{ year }} <a href="https://github.com/Pequla">Pequla</a> | Powered by <a
         href="https://getbootstrap.com/">Boostrap 5</a> &amp; <a href="https://vuejs.org/">Vue 3</a></p>
-    <p class="m-0 p-0 text-muted">Source code available on <a href="https://github.com/Pequla/data-vue">GitHub</a></p>
+    <p class="m-0 p-0 text-muted">Source code available on <a href="https://github.com/Pequla/server-status-list">GitHub</a></p>
   </footer>
 </template>
 

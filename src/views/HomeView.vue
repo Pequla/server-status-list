@@ -15,8 +15,9 @@ import axios from "axios";
 import ServerList from '@/components/ServerList.vue'
 import StorageService from "@/service/StorageService";
 
-const input = ref('37.230.138.224:25577');
+const input = ref('play.beocraft.net');
 const add = () => {
+  if (input.value === '') return;
   if (StorageService.isSaved(input.value)) {
     alert(`${input.value} is already in favourites`)
     return;
